@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Request extends Model {
     /**
@@ -11,8 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Request.belongsToMany(models.Medicine, {
+        through: 'Requestmedicine',
+        foreignKey: 'request_id',
+        as: 'requests',
+      });
+
+      Request.belongsTo(models.User, {
+        foreignKey: 'user_id',
+        as: 'user',
+      });
     }
-  };
+  }
   Request.init({
     date: DataTypes.DATE,
     nurse_id: DataTypes.INTEGER,
@@ -23,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     bp: DataTypes.STRING,
     height: DataTypes.INTEGER,
-    weight: DataTypes.INTEGER
+    weight: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Request',
