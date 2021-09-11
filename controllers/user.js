@@ -55,10 +55,10 @@ async function list(req, res) {
       status: 200,
       result: users,
     });
-  } catch (err) {
+  } catch (e) {
     return res.status(400).json({
       status: 400,
-      message: err.message,
+      message: e.message,
     });
   }
 }

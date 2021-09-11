@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'organization_id',
         as: 'users',
       });
+
+      Organization.hasMany(models.Medicine, {
+        foreignKey: 'organization_id',
+        as: 'medicines',
+      });
     }
   }
   Organization.init(

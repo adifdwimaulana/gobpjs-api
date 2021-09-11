@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'medicine_id',
         as: 'medicines',
       });
+
+      Medicine.belongsTo(models.Organization, {
+        foreignKey: 'organization_id',
+        as: 'organization',
+      });
     }
   }
   Medicine.init(
@@ -22,6 +27,8 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       price: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
+      organization_id: DataTypes.INTEGER,
+      dose: DataTypes.INTEGER,
     },
     {
       sequelize,
