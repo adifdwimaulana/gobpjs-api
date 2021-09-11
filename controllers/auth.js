@@ -6,14 +6,15 @@ async function register(req, res) {
   const { email, password, name, ttl, nik, no_bpjs } = req.body;
 
   try {
+    const hashPassword = bcrypt.hashSync(password, 8);
+
     const user = await User.create({
       email,
-      password,
+      password: hashPassword,
       name,
       ttl,
       nik,
       no_bpjs,
-      ...req.body,
     });
 
     return res.status(200).json({
@@ -48,7 +49,7 @@ async function login(req, res) {
           attributes: ['id', 'name'],
         },
       ],
-      attributes: ['id', 'email', 'name', 'role_id', 'organiation_id'],
+      raw: true,
     });
 
     if (!user) {
@@ -106,24 +107,27 @@ async function authenticateJWT(req, res, next) {
   const { authorization } = req.headers;
 
   try {
-    if (authorization) {
-      const token = await authorization;
-      jwt.verify(token, 'yourSecretKey', (err, decoded) => {
-        if (err) {
-          return res.status(403).json({
-            status: 403,
-            message: err.message,
-          });
-        }
-        req.userToken = decoded.user;
-        next();
-        return token;
+    if (!authorization) {
+      return res.status(401).json({
+        status: 401,
+        message: 'Authentication Failed',
       });
     }
-    return res.status(401).json({
-      status: 401,
-      message: 'Authentication Failed',
+
+    const token = await authorization;
+    jwt.verify(token, 'yourSecretKey', (err, decoded) => {
+      if (err) {
+        return res.status(403).json({
+          status: 403,
+          message: err.message,
+        });
+      }
+      req.userToken = decoded.user;
+      next();
+      return token;
     });
+
+    return token;
   } catch (e) {
     return res.status(400).json({
       status: 400,
@@ -156,10 +160,76 @@ async function checkDuplicateEmail(req, res, next) {
   }
 }
 
+async function isDoctor(req, res, next) {
+  const { userToken } = req;
+
+  try {
+    const user = await User.findByPk(userToken.id);
+    if (user.role_id === 1) {
+      next();
+      return user;
+    }
+    return res.status(403).json({
+      status: 403,
+      message: 'Forbidden',
+    });
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      message: e.message,
+    });
+  }
+}
+
+async function isNurse(req, res, next) {
+  const { userToken } = req;
+
+  try {
+    const user = await User.findByPk(userToken.id);
+    if (user.role_id === 2) {
+      next();
+      return user;
+    }
+    return res.status(403).json({
+      status: 403,
+      message: 'Forbidden',
+    });
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      message: e.message,
+    });
+  }
+}
+
+async function isPharmacist(req, res, next) {
+  const { userToken } = req;
+
+  try {
+    const user = await User.findByPk(userToken.id);
+    if (user.role_id === 3) {
+      next();
+      return user;
+    }
+    return res.status(403).json({
+      status: 403,
+      message: 'Forbidden',
+    });
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      message: e.message,
+    });
+  }
+}
+
 module.exports = {
   register,
   login,
   logout,
   authenticateJWT,
   checkDuplicateEmail,
+  isDoctor,
+  isNurse,
+  isPharmacist,
 };
