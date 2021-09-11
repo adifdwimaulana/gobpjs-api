@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Role extends Model {
@@ -17,11 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Role.init({
-    name: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Role',
-  });
+  Role.init(
+    {
+      name: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'Role',
+    }
+  );
   return Role;
 };

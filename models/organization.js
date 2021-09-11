@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Organization extends Model {
@@ -17,13 +15,16 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Organization.init({
-    name: DataTypes.STRING,
-    address: DataTypes.STRING,
-    description: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Organization',
-  });
+  Organization.init(
+    {
+      name: DataTypes.STRING,
+      address: DataTypes.STRING,
+      description: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'Organization',
+    }
+  );
   return Organization;
 };

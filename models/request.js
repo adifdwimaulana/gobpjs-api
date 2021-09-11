@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Request extends Model {
@@ -23,20 +21,23 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Request.init({
-    date: DataTypes.DATE,
-    nurse_id: DataTypes.INTEGER,
-    doctor_id: DataTypes.INTEGER,
-    organization_id: DataTypes.INTEGER,
-    drugstore_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
-    description: DataTypes.STRING,
-    bp: DataTypes.STRING,
-    height: DataTypes.INTEGER,
-    weight: DataTypes.INTEGER,
-  }, {
-    sequelize,
-    modelName: 'Request',
-  });
+  Request.init(
+    {
+      date: DataTypes.DATE,
+      nurse_id: DataTypes.INTEGER,
+      doctor_id: DataTypes.INTEGER,
+      organization_id: DataTypes.INTEGER,
+      drugstore_id: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
+      description: DataTypes.STRING,
+      bp: DataTypes.STRING,
+      height: DataTypes.INTEGER,
+      weight: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Request',
+    }
+  );
   return Request;
 };

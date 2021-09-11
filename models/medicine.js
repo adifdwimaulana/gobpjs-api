@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Medicine extends Model {
@@ -18,14 +16,17 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Medicine.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    quantity: DataTypes.INTEGER,
-  }, {
-    sequelize,
-    modelName: 'Medicine',
-  });
+  Medicine.init(
+    {
+      name: DataTypes.STRING,
+      description: DataTypes.STRING,
+      price: DataTypes.INTEGER,
+      quantity: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Medicine',
+    }
+  );
   return Medicine;
 };
