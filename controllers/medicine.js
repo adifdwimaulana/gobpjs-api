@@ -1,12 +1,7 @@
 const { Medicine, Organization } = require('../models');
 
 async function list(req, res) {
-    const { userToken } = req;
     let body = {};
-
-    if (userToken.role_id > 0) {
-        body.organization_id = userToken.organization_id;
-    }
 
     body = {
         ...body,
