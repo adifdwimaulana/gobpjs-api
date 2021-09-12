@@ -48,7 +48,7 @@ async function list(req, res) {
         let i = 1;
         users.forEach((user) => {
             // eslint-disable-next-line no-plusplus
-            user.no = i++;
+            user.setDataValue('no', i++);
         });
 
         return res.status(200).json({

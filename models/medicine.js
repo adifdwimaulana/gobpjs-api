@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
                 as: 'requests',
             });
 
+            Medicine.hasOne(models.Requestmedicine, {
+                foreignKey: 'medicine_id',
+                as: 'reqmeds',
+            });
+
             Medicine.belongsTo(models.Organization, {
                 foreignKey: 'organization_id',
                 as: 'organization',

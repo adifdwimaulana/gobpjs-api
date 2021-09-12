@@ -1,4 +1,4 @@
-const { Request, Medicine } = require('../models');
+const { Request, Medicine, Requestmedicine } = require('../models');
 
 async function list(req, res) {
     const { userToken } = req;
@@ -25,6 +25,18 @@ async function list(req, res) {
                     model: Medicine,
                     as: 'medicines',
                     attributes: ['id', 'name', 'dose', 'price', 'quantity'],
+                    include: [
+                        {
+                            model: Requestmedicine,
+                            as: 'reqmeds',
+                            attributes: [
+                                'id',
+                                'request_id',
+                                'medicine_id',
+                                'quantity',
+                            ],
+                        },
+                    ],
                 },
             ],
             order: [['date', 'ASC']],
@@ -33,7 +45,7 @@ async function list(req, res) {
         let i = 1;
         requests.forEach((request) => {
             // eslint-disable-next-line no-plusplus
-            request.no = i++;
+            request.setDataValue('no', i++);
         });
 
         return res.status(200).json({

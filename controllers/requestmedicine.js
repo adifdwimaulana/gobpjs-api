@@ -10,7 +10,7 @@ async function list(req, res) {
         let i = 1;
         reqmeds.forEach((reqmed) => {
             // eslint-disable-next-line no-plusplus
-            reqmed.no = i++;
+            reqmed.setDataValue('no', i++);
         });
 
         return res.status(200).json({
