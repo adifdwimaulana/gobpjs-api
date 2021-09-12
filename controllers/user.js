@@ -33,7 +33,6 @@ async function list(req, res) {
                     attributes: ['id', 'name'],
                 },
             ],
-            raw: true,
             attributes: [
                 'id',
                 'email',
@@ -41,6 +40,7 @@ async function list(req, res) {
                 'no_bpjs',
                 'role_id',
                 'organization_id',
+                'status',
             ],
             order: [['name', 'ASC']],
         });

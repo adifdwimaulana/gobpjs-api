@@ -5,6 +5,7 @@ const authController = require('../controllers/auth');
 const userController = require('../controllers/user');
 const medicineController = require('../controllers/medicine');
 const requestController = require('../controllers/request');
+const reqmedController = require('../controllers/requestmedicine');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -73,6 +74,28 @@ router.post(
     '/api/request/delete',
     authController.authenticateJWT,
     requestController.remove
+);
+
+// Requested Medicine
+router.post(
+    '/api/request-medicine/list',
+    authController.authenticateJWT,
+    reqmedController.list
+);
+router.post(
+    '/api/request-medicine/add',
+    authController.authenticateJWT,
+    reqmedController.add
+);
+router.post(
+    '/api/request-medicine/update',
+    authController.authenticateJWT,
+    reqmedController.update
+);
+router.post(
+    '/api/request-medicine/delete',
+    authController.authenticateJWT,
+    reqmedController.remove
 );
 
 module.exports = router;
