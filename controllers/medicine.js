@@ -24,7 +24,7 @@ async function list(req, res) {
         let i = 1;
         medicines.forEach((medicine) => {
             // eslint-disable-next-line no-plusplus
-            medicine.no = i++;
+            medicine.setDataValue('no', i++);
         });
 
         return res.status(200).json({

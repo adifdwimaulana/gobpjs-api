@@ -48,7 +48,7 @@ async function list(req, res) {
         let i = 1;
         users.forEach((user) => {
             // eslint-disable-next-line no-plusplus
-            user.no = i++;
+            user.setDataValue('no', i++);
         });
 
         return res.status(200).json({
@@ -63,6 +63,36 @@ async function list(req, res) {
     }
 }
 
+async function update(req, res) {
+    const { id } = req.body;
+
+    try {
+        const user = await User.findByPk(id);
+
+        if (!user) {
+            return res.status(404).json({
+                status: 404,
+                message: 'User Not Found!',
+            });
+        }
+
+        const updatedUser = await user.update({
+            ...req.body,
+        });
+
+        return res.status(200).json({
+            status: 200,
+            result: updatedUser,
+        });
+    } catch (e) {
+        return res.status(400).json({
+            status: 400,
+            message: e.message,
+        });
+    }
+}
+
 module.exports = {
     list,
+    update,
 };

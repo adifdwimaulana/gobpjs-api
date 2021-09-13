@@ -31,6 +31,11 @@ router.post(
     authController.authenticateJWT,
     userController.list
 );
+router.post(
+    '/api/user/update',
+    authController.authenticateJWT,
+    userController.update
+);
 
 // Medicine
 router.post(
