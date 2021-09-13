@@ -18,7 +18,6 @@ async function list(req, res) {
                     attributes: ['id', 'name'],
                 },
             ],
-            raw: true,
             order: [['name', 'ASC']],
         });
 

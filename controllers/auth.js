@@ -50,7 +50,6 @@ async function login(req, res) {
                     attributes: ['id', 'name'],
                 },
             ],
-            raw: true,
         });
 
         if (!user) {
