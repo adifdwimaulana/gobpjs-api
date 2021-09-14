@@ -26,18 +26,20 @@ async function list(req, res) {
 }
 
 async function add(req, res) {
-    const { request_id, medicine_id, quantity } = req.body;
+    const { request_id, medicines } = req.body;
 
     try {
-        const reqmed = await Requestmedicine.create({
-            request_id,
-            medicine_id,
-            quantity,
+        medicines.forEach(async (medicine) => {
+            const reqmed = await Requestmedicine.create({
+                request_id,
+                medicine_id: medicine.medicine_id,
+                quantity: medicine.quantity,
+            });
         });
 
         return res.status(200).json({
             status: 200,
-            result: reqmed,
+            result: 'Requested medicine successfully created!',
         });
     } catch (e) {
         return res.status(400).json({
