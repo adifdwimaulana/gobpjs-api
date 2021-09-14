@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Request, Medicine, Requestmedicine } = require('../models');
 
 async function list(req, res) {
@@ -8,6 +9,9 @@ async function list(req, res) {
         body.user_id = userToken.id;
     } else if (userToken.role_id === 3) {
         body.drugstore_id = userToken.organization_id;
+        body.status = {
+            [Op.gt]: 2,
+        };
     } else if (userToken.role_id > 0) {
         body.organization_id = userToken.organization_id;
     }
