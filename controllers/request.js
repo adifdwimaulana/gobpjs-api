@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Request, Medicine, Requestmedicine } = require('../models');
+const { Request, Medicine, Requestmedicine, User } = require('../models');
 
 async function list(req, res) {
     const { userToken } = req;
@@ -41,6 +41,10 @@ async function list(req, res) {
                             ],
                         },
                     ],
+                },
+                {
+                    model: User,
+                    as: 'user',
                 },
             ],
             order: [['date', 'ASC']],
