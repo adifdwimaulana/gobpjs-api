@@ -10,7 +10,7 @@ async function list(req, res) {
     } else if (userToken.role_id === 3) {
         body.drugstore_id = userToken.organization_id;
         body.status = {
-            [Op.gt]: 2,
+            [Op.gte]: 2,
         };
     } else if (userToken.role_id > 0) {
         body.organization_id = userToken.organization_id;
