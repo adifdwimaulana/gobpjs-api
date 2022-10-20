@@ -45,7 +45,7 @@ async function list(req, res) {
                 {
                     model: User,
                     as: 'user',
-                    attributes: ['id', 'name', 'no_bpjs'],
+                    attributes: ['id', 'name', 'no_bpjs', 'ttl'],
                 },
             ],
             order: [['date', 'ASC']],
