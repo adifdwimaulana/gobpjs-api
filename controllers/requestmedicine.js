@@ -26,18 +26,20 @@ async function list(req, res) {
 }
 
 async function add(req, res) {
-    const { request_id, medicine_id, quantity } = req.body;
+    const { request_id, medicines } = req.body;
 
     try {
-        const reqmed = await Requestmedicine.create({
-            request_id,
-            medicine_id,
-            quantity,
+        const arr = medicines.map(async (item) => {
+            const reqmed = await Requestmedicine.create({
+                request_id,
+                medicine_id: item.medicine_id,
+                quantity: Number(item.quantity),
+            });
         });
 
         return res.status(200).json({
             status: 200,
-            result: reqmed,
+            result: arr,
         });
     } catch (e) {
         return res.status(400).json({
