@@ -12,7 +12,8 @@ module.exports = {
         await queryInterface.bulkInsert('Users', [
             {
                 email: 'admin@admin.com',
-                password: 'Password01!',
+                password:
+                    '$2a$08$QuWBGr8fwfpEFHgmTbcVWu.4QvoBPiP6Oo30hxz6Ba4/WEX3.Qhpe',
                 nik: '31109241284124',
                 no_bpjs: '0112942143',
                 faskes: '',
